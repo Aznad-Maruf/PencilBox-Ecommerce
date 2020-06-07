@@ -1,0 +1,42 @@
+﻿@model Customer
+    
+
+<h1>Customer Create</h1>
+    
+    <div class="card">
+        <div class="card-header text-md-center text-uppercase">
+            Customer Create
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <div class="form-group">
+                    <label asp-for="Name">Name</label>
+                    <input asp-for="Name" class="form-control"/>
+                    <span asp-validation-for="Name" class="d-block text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="Phone">Phone</label>
+                    <input asp-for="Phone" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label for="Address">Address</label>
+                    <input asp-for="Address" class="form-control" />
+                </div>
+                
+                <input type="submit" value="Save" class="btn-primary form-control"/>
+            </form>
+        </div>
+    </div>
+
+<partial name="~/Views/Shared/PartialViews/Customer/_CustomerList.cshtml" for="@Model.customers">
+
+@section Styles
+{
+    <link href="css/Customer/CustomerCreate.css" rel="stylesheet" type="text/css"/>
+}
+@section Scripts
+{
+    <script src="js/Customer/CustomerCreate.js"></script>
+}
