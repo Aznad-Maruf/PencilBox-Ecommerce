@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EcommerceApp.Database;
-using EcommerceApp.Models;
+using Ecommerce.Database.Database;
+using Ecommerce.Models.EntityModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +14,7 @@ namespace EcommerceApp.Controllers
     public class CustomerController : Controller
     {
         // GET: /<controller>/
-        private EcommerceDbContext ecommerceDbContext = new EcommerceDbContext();
+        private readonly EcommerceDbContext ecommerceDbContext = new EcommerceDbContext();
         public IActionResult Index()
         {
             return View();
@@ -24,7 +24,7 @@ namespace EcommerceApp.Controllers
         {
             Customer customer = new Customer()
             {
-                customers = ecommerceDbContext.Customers.ToList()
+                Customers = ecommerceDbContext.Customers.ToList()
             };
             return View(customer);
         }
@@ -41,7 +41,7 @@ namespace EcommerceApp.Controllers
             }
 
             //if (isSaved) return RedirectToAction("List");
-            customer.customers = ecommerceDbContext.Customers.ToList();
+            customer.Customers = ecommerceDbContext.Customers.ToList();
             return View(customer);
         }
 

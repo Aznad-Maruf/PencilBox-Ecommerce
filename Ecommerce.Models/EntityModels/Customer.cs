@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EcommerceApp.Models
+namespace Ecommerce.Models.EntityModels
 {
     public class Customer
     {
@@ -14,6 +14,5 @@ namespace EcommerceApp.Models
 
         [NotMapped]
         public List<Customer> Customers { get; set; }
-        //public List<CouponCode> CouponCodes { get; set; }
     }
 }
