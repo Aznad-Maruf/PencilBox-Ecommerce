@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Ecommerce.Database\Ecommerce.Database.csproj" />
     <ProjectReference Include="..\Ecommerce.Models\Ecommerce.Models.csproj" />
+    <ProjectReference Include="..\Ecommerce.Repositories.Abstructions\Ecommerce.Repositories.Abstructions.csproj" />
   </ItemGroup>
 
 </Project>

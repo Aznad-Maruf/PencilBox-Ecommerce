@@ -1,0 +1,14 @@
+﻿@model ICollection<EcommerceApp.Models.CategoryViewModel>
+
+<div class="card">
+    <div class="card-header">
+        Category Create
+    </div>
+    <div class="card-body">
+        <p>
+            <a asp-controller="Category" asp-action="Create">Create New</a>
+        </p>
+
+        <partial name="~/Views/Shared/PartialViews/Category/_CategoryList.cshtml" for="@Model" />
+    </div>
+</div>

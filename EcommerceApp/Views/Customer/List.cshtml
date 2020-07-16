@@ -21,12 +21,13 @@
                     @{
                         foreach (Customer customer in Model)
                         {
-                            <tr>
-                                <td>@customer.Name</td>
-                                <td>@customer.Phone</td>
-                                <td>@customer.Address</td>
-                                <td><a asp-controller="Customer" asp-action="Edit" asp-route-id="@customer.Id" class="btn badge-info">Edit</a></td>
-                            </tr>
+                                        <tr>
+                                            <td>@customer.Name</td>
+                                            <td>@customer.Phone</td>
+                                            <td>@customer.Address</td>
+                                            <td><a asp-controller="Customer" asp-action="Edit" asp-route-id="@customer.Id" class="btn button-info">Edit</a></td>
+                                            <td><a asp-controller="Customer" asp-action="Delete" asp-route-id="@customer.Id" class="btn button-danger">Delete</a></td>
+                                        </tr>
                         }
                     }
                 </tbody>

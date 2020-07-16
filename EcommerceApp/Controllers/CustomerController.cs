@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Ecommerce.BLL;
+using Ecommerce.BLL.Abstructions;
 using Ecommerce.Database.Database;
 using Ecommerce.Models.EntityModels;
+using EcommerceApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +18,14 @@ namespace EcommerceApp.Controllers
     public class CustomerController : Controller
     {
         // GET: /<controller>/
-        private readonly EcommerceDbContext ecommerceDbContext = new EcommerceDbContext();
+        private readonly ICustomerManager _customerManager;
+        private IMapper _mapper;
+
+        public CustomerController(ICustomerManager customerManager, IMapper mapper)
+        {
+            _customerManager = customerManager;
+            _mapper = mapper;
+        }
         public IActionResult Index()
         {
             return View();
@@ -24,30 +35,31 @@ namespace EcommerceApp.Controllers
         {
             Customer customer = new Customer()
             {
-                Customers = ecommerceDbContext.Customers.ToList()
+                Customers = _customerManager.GetAll()
             };
             return View(customer);
         }
 
         [HttpPost]
-        public IActionResult Create(Customer customer)
+        public IActionResult Create(CustomerViewModel customerViewModel)
         {
-
+            Customer customer = _mapper.Map<Customer>(customerViewModel);
             if (ModelState.IsValid)
             {
-                ecommerceDbContext.Customers.Add(customer);
-
-                ecommerceDbContext.SaveChanges();
+                if (_customerManager.Add(customer))
+                {
+                    RedirectToAction("List");
+                }
             }
 
-            //if (isSaved) return RedirectToAction("List");
-            customer.Customers = ecommerceDbContext.Customers.ToList();
+            
+            customer.Customers = _customerManager.GetAll();
             return View(customer);
         }
 
         public IActionResult List()
         {
-            List<Customer> customers = ecommerceDbContext.Customers.ToList();
+            var customers = _customerManager.GetAll();
 
             return View(customers);
         }
@@ -57,7 +69,7 @@ namespace EcommerceApp.Controllers
         {
             if (id != null)
             {
-                Customer existingCustomer = ecommerceDbContext.Customers.Find(id);
+                Customer existingCustomer = _customerManager.GetById((int)id);
                 return View("Edit", existingCustomer);
             }
 
@@ -67,11 +79,18 @@ namespace EcommerceApp.Controllers
         [HttpPost]
         public IActionResult Edit(Customer customer)
         {
-            ecommerceDbContext.Entry(customer).State = EntityState.Modified;
-            if(ecommerceDbContext.SaveChanges()>0)
-            return RedirectToAction("List");
+            if (_customerManager.Update(customer))
+                return RedirectToAction("List");
 
             return View(customer);
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int? id)
+        {
+            var customer = _customerManager.GetById((int) id);
+            _customerManager.Remove(customer);
+            return RedirectToAction("List");
         }
 
     }

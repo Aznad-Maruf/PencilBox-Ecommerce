@@ -1,0 +1,5 @@
+1. Create Abstructions of admin and categories.
+2. Make them.
+3. Make UI of them.
+4. Make CRUD of them.
+5. Run the soluton.

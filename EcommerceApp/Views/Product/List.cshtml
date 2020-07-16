@@ -1,0 +1,13 @@
+﻿@model ICollection<EcommerceApp.Models.ProductViewModel>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h1>List</h1>
+
+<p>
+    <a asp-controller="Product" asp-action="Create">Create New</a>
+</p>
+
+<partial name="~/Views/Shared/PartialViews/Product/_ProductList.cshtml"  for="@Model"/>
